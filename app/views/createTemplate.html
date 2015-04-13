@@ -1,0 +1,12 @@
+<div>
+  <h2>Create Template</h2>
+</div>
+
+<accordion close-others="oneAtATime">
+  <accordion-group heading="{{group.title}}" ng-repeat="group in vm.groups" is-open="group.isOpen">
+    <label class="checkbox-inline" ng-repeat="cntnt in group.content">
+      <input type="checkbox" ng-model="cntnt.isSelected">
+      {{cntnt.name}}
+    </label>
+  </accordion-group>
+</accordion>
