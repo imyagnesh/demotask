@@ -1,12 +1,14 @@
-(function(){
+(function () {
   'use strict';
 
-  angular.module('demotaskApp').controller('NewTemplateCtrl',NewTemplateCtrl);
-
-  //NewTemplateCtrl.$inject = ['$state','$stateParams'];
-
-  function NewTemplateCtrl()
-  {
+  function NewTemplateCtrl($scope,myService) {
+    var vm = this;
+    $scope.groups = myService.getAllGroupData();
   }
+
+  angular.module('demotaskApp').controller('NewTemplateCtrl', NewTemplateCtrl);
+
+  NewTemplateCtrl.$inject = ['$scope','myService'];
+
 
 })();

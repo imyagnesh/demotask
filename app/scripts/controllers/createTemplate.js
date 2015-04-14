@@ -4,26 +4,17 @@
 (function () {
   'use strict';
 
-  angular.module('demotaskApp').controller('CreateTemplateCtrl', CreateTemplateCtrl);
-
-  //CreateTemplateCtrl.$inject = ['$state','$stateParams'];
-
-  function CreateTemplateCtrl() {
+  function CreateTemplateCtrl($scope,myService) {
     var vm = this;
     vm.oneAtATime = false;
-    vm.groups = [
-      {
-        title: 'Basic Listing Information',
-        isOpen: true,
-        content: [{
-          name: 'Ship From Country',
-          isSelected: true
-        },
-          {
-            name: 'Ship From Zip Code',
-            isSelected: true
-          }]
-      }
-    ];
+    vm.groups = myService.getAllGroupData();
+    $scope.selectAll = function(item) {
+      myService.selectDeselectAll(item);
+    }
   }
+
+  angular.module('demotaskApp').controller('CreateTemplateCtrl', CreateTemplateCtrl);
+
+  CreateTemplateCtrl.$inject = ['$scope','myService'];
+
 })();

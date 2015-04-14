@@ -1,24 +1,30 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular.module('demotaskApp').controller('MainCtrl', MainCtrl);
+  function MainCtrl($state) {
+    var vm = this;
 
-    MainCtrl.$inject = ['$state'];
+    vm.tabs = [
+      {text: 'Create Template', state: 'main.createTemplate'},
+      {text: 'New Template', state: 'main.newTemplate'}
+    ];
 
-    function MainCtrl($state) {
-        var vm = this;
+    $state.go('main.createTemplate');
 
-        vm.tabs = [
-            {text: 'Create Template', state: 'main.createTemplate'},
-            {text: 'New Template', state: 'main.newTemplate'}
-        ];
-
-        activate();
-
-        function activate() {
-            angular.forEach(vm.tabs, function (tab) {
-                tab.active = ($state.current.name === tab.state);
-            });
-        }
+    function activate() {
+      _.each(vm.tabs, function (tab) {
+        tab.active = ($state.current.name === tab.state);
+      });
     }
+
+    activate();
+
+
+  }
+
+  angular.module('demotaskApp').controller('MainCtrl', MainCtrl);
+
+  MainCtrl.$inject = ['$state'];
+
+
 })();
