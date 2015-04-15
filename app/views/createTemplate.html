@@ -15,9 +15,9 @@
           <div class="container">
         <span><a href="#" ng-click="selectAll(true)">Select all</a> | <a href="#" ng-click="selectAll(false)">Deselect
           all</a></span></div>
-          <label class="checkbox-inline" ng-repeat="cntnt in group.content | filter:search">
+          <label class="checkbox-inline" ng-repeat="cntnt in group.content | filter:search" >
             <input type="checkbox" ng-model="cntnt.isSelected">
-            {{cntnt.name }}
+            <p ng-bind-html="cntnt.name | highlighter:search"></p>
           </label>
         </accordion-group>
       </accordion>

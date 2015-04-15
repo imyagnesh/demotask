@@ -4,17 +4,17 @@
 (function () {
   'use strict';
 
-  function CreateTemplateCtrl($scope,myService) {
+  function CreateTemplateCtrl($scope, myService) {
     var vm = this;
     vm.oneAtATime = false;
     vm.groups = myService.getAllGroupData();
-    $scope.selectAll = function(item) {
+    $scope.selectAll = function (item) {
       myService.selectDeselectAll(item);
-    }
+    };
   }
 
   angular.module('demotaskApp').controller('CreateTemplateCtrl', CreateTemplateCtrl);
 
-  CreateTemplateCtrl.$inject = ['$scope','myService'];
+  CreateTemplateCtrl.$inject = ['$scope', 'myService'];
 
 })();

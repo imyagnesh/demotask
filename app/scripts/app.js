@@ -1,4 +1,4 @@
-(function(){
+(function () {
 
   'use strict';
 
@@ -10,46 +10,44 @@
 
   ]);
 
-  function configRoutes($stateProvider,$urlRouterProvider)
-  {
+  function configRoutes($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/main');
     //
     // Now set up the states
     $stateProvider
-      .state('main',{
-        url:'/main',
-        templateUrl:'views/main.html',
-        controller:'MainCtrl',
-        controllerAs:'vm'
+      .state('main', {
+        url: '/main',
+        abstract:true,
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'vm'
       })
       .state('main.createTemplate',
       {
-        url:'/createTemplate',
-        views:{
-          'tabContent':{
-            templateUrl:'views/createTemplate.html',
-            controller:'CreateTemplateCtrl',
-            controllerAs:'vm'
+        url: '',
+        views: {
+          'tabContent': {
+            templateUrl: 'views/createTemplate.html',
+            controller: 'CreateTemplateCtrl',
+            controllerAs: 'vm'
           }
         }
       })
       .state('main.newTemplate',
       {
-        url:'/newTemplate',
-        views:{
-          'tabContent':{
-            templateUrl:'views/newTemplate.html',
-            controller:'NewTemplateCtrl'
+        url: '/newTemplate',
+        views: {
+          'tabContent': {
+            templateUrl: 'views/newTemplate.html',
+            controller: 'NewTemplateCtrl'
           }
         }
       });
 
   }
 
-  app.config(['$stateProvider','$urlRouterProvider',configRoutes]);
-
-
+  app.config(['$stateProvider', '$urlRouterProvider', configRoutes]);
 
 
 })();

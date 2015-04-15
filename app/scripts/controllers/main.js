@@ -9,8 +9,6 @@
       {text: 'New Template', state: 'main.newTemplate'}
     ];
 
-    $state.go('main.createTemplate');
-
     function activate() {
       _.each(vm.tabs, function (tab) {
         tab.active = ($state.current.name === tab.state);
