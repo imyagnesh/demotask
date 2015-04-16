@@ -1,73 +1,88 @@
-'use strict';
+(function () {
 
-function myService() {
 
-  var groupData = [
-    {
-      title: 'Basic Listing Information',
-      isOpen: true,
-      content: [{
-        name: 'Ship From Country',
-        isSelected: true,
-        AttachedElement: {
-          element: 'input',
-          label: 'User Name',
-          attributes: {
-            'type': 'text',
-            'ng-model': '',
-            'name': '',
-            'required': '',
-            'ng-required': 'true',
-            'ng-minlength': '',
-            'Placeholder': 'User Name',
-            'class': 'form-control'
-          }
-        }
-      },
-        {
-          name: 'Ship From Zip Code',
+  'use strict';
+
+  function myService($q) {
+
+    var groupData = [
+      {
+        title: 'Basic Listing Information',
+        isOpen: true,
+        content: [{
+          name: 'Ship From Country',
           isSelected: true,
           AttachedElement: {
             element: 'input',
-            label: 'Password',
+            label: 'User Name',
             attributes: {
-              'type': 'password',
+              'type': 'text',
               'ng-model': '',
               'name': '',
               'required': '',
               'ng-required': 'true',
               'ng-minlength': '',
-              'Placeholder': 'Password',
+              'Placeholder': 'User Name',
               'class': 'form-control'
             }
           }
-        }]
+        },
+          {
+            name: 'Ship From Zip Code',
+            isSelected: true,
+            AttachedElement: {
+              element: 'input',
+              label: 'Password',
+              attributes: {
+                'type': 'password',
+                'ng-model': '',
+                'name': '',
+                'required': '',
+                'ng-required': 'true',
+                'ng-minlength': '',
+                'Placeholder': 'Password',
+                'class': 'form-control'
+              }
+            }
+          }]
+      }
+    ];
+
+    function getAllGroupData() {
+      var deferred = $q.defer();
+      var success = true;
+      if (success)
+        deferred.resolve(groupData);
+      else
+        deferred.reject("Data is not available");
+
+      return deferred.promise;
     }
-  ];
 
-  function getAllGroupData() {
-    return groupData;
+    function selectDeselectAll(data) {
+      for (var i = groupData.length - 1; i >= 0; i--) {
+        for (var j = groupData[i].content.length - 1; j >= 0; j--) {
+          groupData[i].content[j].isSelected = data;
+        }
+      }
+    }
+
+    var service = {
+      getAllGroupData: getAllGroupData,
+      selectDeselectAll: selectDeselectAll
+    };
+
+    return service;
   }
 
-  function selectDeselectAll(data) {
-    _.each(groupData, function (grp) {
-      _.each(grp.content, function (cntnt) {
-        cntnt.isSelected = data;
-      });
-    });
-  }
+  angular
+    .module('demotaskApp')
+    .factory('myService', myService);
 
-  var service = {
-    getAllGroupData: getAllGroupData,
-    selectDeselectAll: selectDeselectAll
-  };
 
-  return service;
-}
+  myService.$inject = ['$q'];
 
-angular
-  .module('demotaskApp')
-  .factory('myService', myService);
+})();
 
 
 

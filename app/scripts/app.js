@@ -4,10 +4,11 @@
 
   var app = angular.module('demotaskApp', [
     'ngResource',
+    'ui.utils',
+    'ngSanitize',
     //3rd party modules
     'ui.bootstrap',
-    'ui.router',
-
+    'ui.router'
   ]);
 
   function configRoutes($stateProvider, $urlRouterProvider) {

@@ -10,13 +10,25 @@
     ];
 
     function activate() {
-      _.each(vm.tabs, function (tab) {
-        tab.active = ($state.current.name === tab.state);
-      });
+      //var tabIndex = _.findIndex(vm.tabs, 'state', $state.current.name);
+      //if(tabIndex !== -1)
+      //  vm.tabs[tabIndex].active = true;
+
+      //for (var i = vm.tabs.length - 1; i >= 0; i--) {
+      //  vm.tabs[i].active = ($state.current.name === vm.tabs[i].state)
+      //}
+
+      var i = vm.tabs.length;
+      while (i--) {
+        vm.tabs[i].active = ($state.current.name === vm.tabs[i].state);
+      }
+
+      //_.each(vm.tabs, function (tab) {
+      //  tab.active = ($state.current.name === tab.state);
+      //});
     }
 
     activate();
-
 
   }
 

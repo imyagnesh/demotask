@@ -3,12 +3,12 @@
 
   function textDirective() {
 
-    function link(scope, element, attrs) {
-      /* */
-    }
+    //function link(scope, element, attrs) {
+    //  /* */
+    //}
 
     var directive = {
-      link: link,
+      //link: link,
       template: '<div class="form-group" ng-show="{{  }}">' +
       '<label for="inputEmail3" class="col-sm-2 control-label">Email</label>' +
       '<div class="col-sm-10">' +

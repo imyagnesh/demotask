@@ -4,17 +4,31 @@
 (function () {
   'use strict';
 
-  function CreateTemplateCtrl($scope, myService) {
+  function CreateTemplateCtrl(myService) {
     var vm = this;
+
+    myService.getAllGroupData()
+      .then(getAllGroupSuccess, getAllGroupError);
+      //.catch(catchblock)
+      //.finally(finallyblock);
+
+    function getAllGroupSuccess(data) {
+      vm.groups = data;
+    }
+
+    function getAllGroupError(reason) {
+      console.log(reason);
+    }
+
+    vm.selectDeselect = myService.selectDeselectAll;
+
+    vm.highlighted = 'highlighted';
     vm.oneAtATime = false;
-    vm.groups = myService.getAllGroupData();
-    $scope.selectAll = function (item) {
-      myService.selectDeselectAll(item);
-    };
+
   }
 
   angular.module('demotaskApp').controller('CreateTemplateCtrl', CreateTemplateCtrl);
 
-  CreateTemplateCtrl.$inject = ['$scope', 'myService'];
+  CreateTemplateCtrl.$inject = ['myService'];
 
 })();

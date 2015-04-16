@@ -13,11 +13,11 @@
       <accordion close-others="oneAtATime">
         <accordion-group heading="{{group.title}}" ng-repeat="group in vm.groups" is-open="group.isOpen">
           <div class="container">
-        <span><a href="#" ng-click="selectAll(true)">Select all</a> | <a href="#" ng-click="selectAll(false)">Deselect
+        <span><a href="#" ng-click="vm.selectDeselect(true)">Select all</a> | <a href="#" ng-click="vm.selectDeselect(false)">Deselect
           all</a></span></div>
           <label class="checkbox-inline" ng-repeat="cntnt in group.content | filter:search" >
             <input type="checkbox" ng-model="cntnt.isSelected">
-            <p ng-bind-html="cntnt.name | highlighter:search"></p>
+            <p ng-bind-html="cntnt.name | highlight:search"></p>
           </label>
         </accordion-group>
       </accordion>

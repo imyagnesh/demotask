@@ -78,6 +78,4 @@ body {
   }
 }
 
-.highlighted{
-  color: orange;
-}
+.ui-match { color: orange; }
