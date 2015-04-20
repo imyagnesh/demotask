@@ -4,10 +4,8 @@
   function MainCtrl($state) {
     var vm = this;
 
-    vm.tabs = [
-      {text: 'Create Template', state: 'main.createTemplate'},
-      {text: 'New Template', state: 'main.newTemplate'}
-    ];
+    vm.tabs = [{text: 'Create Template', state: 'main.createTemplate'},
+              {text: 'New Template', state: 'main.newTemplate'}];
 
     function activate() {
       //var tabIndex = _.findIndex(vm.tabs, 'state', $state.current.name);

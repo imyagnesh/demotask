@@ -7,11 +7,6 @@
   function CreateTemplateCtrl(myService) {
     var vm = this;
 
-    myService.getAllGroupData()
-      .then(getAllGroupSuccess, getAllGroupError);
-      //.catch(catchblock)
-      //.finally(finallyblock);
-
     function getAllGroupSuccess(data) {
       vm.groups = data;
     }
@@ -19,6 +14,13 @@
     function getAllGroupError(reason) {
       console.log(reason);
     }
+
+    myService.getAllGroupData()
+      .then(getAllGroupSuccess, getAllGroupError);
+      //.catch(catchblock)
+      //.finally(finallyblock);
+
+
 
     vm.selectDeselect = myService.selectDeselectAll;
 

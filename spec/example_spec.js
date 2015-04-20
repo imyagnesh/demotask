@@ -30,7 +30,7 @@
     mainPage = new MainPage();
     beforeEach(function () {
       mainPage.get();
-    })
+    });
 
     function displayAppName() {
       expect(mainPage.appName.getText()).toEqual('demotask');
@@ -111,7 +111,6 @@
     it('should click on first tab', clickFirstTab);
 
     it('should click on second tab', clickSecondTab);
-
 
     it('should search result', searchResult);
 

@@ -51,10 +51,12 @@
     function getAllGroupData() {
       var deferred = $q.defer();
       var success = true;
-      if (success)
+      if (success) {
         deferred.resolve(groupData);
-      else
-        deferred.reject("Data is not available");
+      }
+      else {
+        deferred.reject('Data is not available');
+      }
 
       return deferred.promise;
     }
