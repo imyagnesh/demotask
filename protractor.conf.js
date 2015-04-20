@@ -8,11 +8,10 @@ exports.config = {
   ],
 
 
-  multiCapabilities: [{
-    'browserName': 'firefox'
-  }, {
-    'browserName': 'chrome'
-  }],
+  capabilities: {
+    'browserName': 'chrome',
+    'chromeOptions': {'args': ['--disable-extensions']}
+  },
 
 
   // A base URL for your application under test. Calls to protractor.get()
