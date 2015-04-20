@@ -3,9 +3,13 @@ exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
 
   // Spec patterns are relative to the location of this config.
-  specs: [
-    'spec/*_spec.js'
-  ],
+  //specs: [
+  //  'spec/*_spec.js'
+  //],
+
+  suites: {
+    homepage: 'spec/*_spec.js'
+  },
 
 
   capabilities: {
@@ -16,7 +20,7 @@ exports.config = {
 
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:8000',
+  baseUrl: 'http://localhost:9000',
 
   jasmineNodeOpts: {
     onComplete: null,

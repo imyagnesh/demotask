@@ -1,91 +1,122 @@
 (function () {
   'use strict';
 
-  describe('demotask app', function () {
+  var MainPage;
+  MainPage = function () {
 
-    describe('Application main page', function () {
+    this.appName = element(by.css('h3.text-muted'));
+    this.tabRepeater = element.all(by.repeater('tab in vm.tabs'));
+    this.tabNames = element.all(by.css('.nav-tabs li'));
+    this.firstTab = element.all(by.css('[ng-click="select()"]')).get(0);
+    this.secondTab = element.all(by.css('[ng-click="select()"]')).get(1);
+    this.selectAll = element(by.css('[ng-click="vm.selectDeselect(true)"]'));
+    this.deselectAll = element(by.css('[ng-click="vm.selectDeselect(false)"]'));
+    this.checkBoxes = element.all(by.model('cntnt.isSelected'));
+    this.searchTB = element.all(by.model('search'));
+    this.matchText = element.all(by.css('ui-match'));
 
-      beforeEach(function () {
-        browser.get('http://localhost:9000/#/main');
+    this.get = function () {
+      browser.get('http://localhost:9000/#/main');
+    };
+
+    this.fillSearch = function (search) {
+      this.searchTB.sendKeys(search);
+    }
+  };
+
+
+  describe('Application main page', function () {
+    var mainPage;
+    mainPage = new MainPage();
+    beforeEach(function () {
+      mainPage.get();
+    })
+
+    function displayAppName() {
+      expect(mainPage.appName.getText()).toEqual('demotask');
+    }
+
+    function displayTab() {
+      expect(mainPage.tabRepeater.count()).toEqual(2);
+    }
+
+    function TabName() {
+      var tabs = mainPage.tabNames.map(function (elm, index) {
+        return {
+          index: index,
+          text: elm.getAttribute('heading'),
+          state: elm.getAttribute('href')
+        };
       });
+      expect(tabs).toEqual([
+        {index: 0, text: 'Create Template', state: '#/main'},
+        {index: 1, text: 'New Template', state: '#/main/newTemplate'}
+      ]);
+    }
 
-      function displayAppName() {
-        var appName = element(by.css('h3.text-muted')); //using the CSS selector
-        expect(appName.getText()).toEqual('demotask');
-      }
 
-      function displayTab() {
-        var rows = element.all(by.repeater('tab in vm.tabs'));
-        expect(rows.count()).toEqual(2);
-      }
-
-      function TabName() {
-        var tabs = element.all(by.css('.nav-tabs li')).map(function (elm, index) {
-          return {
-            index: index,
-            text: elm.getAttribute('heading'),
-            state: elm.getAttribute('href')
-          };
+    function selectAll() {
+      mainPage.selectAll.click()
+        .then(function () {
+          mainPage.checkBoxes.each(function (element, index) {
+            expect(element.isSelected()).toBeTruthy();
+          })
         });
-        expect(tabs).toEqual([
-          {index: 0, text: 'Create Template', state: '#/main'},
-          {index: 1, text: 'New Template', state: '#/main/newTemplate'}
-        ]);
-      }
+    }
 
-      function clickFirstTab() {
-        element.all(by.css('[ng-click="select()"]')).get(0).click()
-          .then(function () {
-            browser.waitForAngular();
-            expect(browser.getCurrentUrl()).toContain('#/main');
-          });
-      }
+    function deselectAll() {
+      mainPage.deselectAll.click()
+        .then(function () {
+          mainPage.checkBoxes.each(function (element, index) {
+            expect(element.isSelected()).toBeFalsy();
+          })
+        });
+    }
 
-      function clickSecondTab() {
-        element.all(by.css('[ng-click="select()"]')).get(1).click()
-          .then(function () {
-            browser.waitForAngular();
-            expect(browser.getCurrentUrl()).toContain('#/main/newTemplate');
-          });
-      }
 
-      function selectAll(){
-        element(by.css('[vm.selectDeselect(true)"]')).click()
-          .then(function () {
-            var rows = element.all(by.repeater('cntnt in group.content'));
-            rows.each(function (element, index) {
-              expect(rows(index).column('cntnt.isSelected')).toMatch('true');
-            })
-          });
-      }
+    function clickFirstTab() {
+      mainPage.firstTab.click()
+        .then(function () {
+          browser.waitForAngular();
+          expect(browser.getCurrentUrl()).toContain('#/main');
+        });
+    }
 
-      function deselectAll(){
-        element(by.css('[vm.selectDeselect(false)"]')).click()
-          .then(function () {
-            var rows = element.all(by.repeater('cntnt in group.content'));
-            rows.each(function (element, index) {
-              expect(rows(index).column('cntnt.isSelected')).toMatch('false');
-            })
-          });
-      }
+    function clickSecondTab() {
+      mainPage.secondTab.click()
+        .then(function () {
+          browser.waitForAngular();
+          expect(browser.getCurrentUrl()).toContain('#/main/newTemplate');
+        });
+    }
 
-      it('should display the application name', displayAppName);
+    function searchResult() {
+      mainPage.fillSearch('ship');
+      expect(mainPage.checkBoxes.count()).toBe(2);
+      mainPage.matchText.each(function (element,index) {
+        expect(element.getText()).toMatch('ship');
+      });
+    }
 
-      it('should display the tab', displayTab);
+    it('should display the application name', displayAppName);
 
-      it('should display the tab name', TabName);
+    it('should display the tab', displayTab);
 
-      it('should click on first tab', clickFirstTab);
+    it('should display the tab name', TabName);
 
-      it('should click on second tab', clickSecondTab);
+    it('should select all checkbox', selectAll);
 
-      it('should select all checkbox', selectAll);
+    it('should deselect all checkbox', deselectAll);
 
-      it('should deselect all checkbox',deselectAll)
+    it('should click on first tab', clickFirstTab);
 
-    });
+    it('should click on second tab', clickSecondTab);
+
+
+    it('should search result', searchResult);
 
   });
+
 
 })();
 

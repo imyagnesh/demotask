@@ -22,7 +22,6 @@
 
     vm.selectDeselect = myService.selectDeselectAll;
 
-    vm.highlighted = 'highlighted';
     vm.oneAtATime = false;
 
   }
