@@ -2,13 +2,11 @@
 
 describe('Controller: MainCtrl', function () {
 
-  var $state;
-
   // load the controller's module
   beforeEach(module('demotaskApp'));
 
-  var MainCtrl
-    ,state;
+  var MainCtrl;
+  var state;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $state) {

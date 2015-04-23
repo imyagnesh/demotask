@@ -1,28 +1,58 @@
 (function () {
   'use strict';
 
-  function textDirective() {
+  function TextController(myService) {
+    var vm = this;
+    vm.content = myService.getContentFromName(vm.name);
+  }
 
-    //function link(scope, element, attrs) {
-    //  /* */
-    //}
+  TextController.$inject = ['myService'];
+
+  function textDirective($compile) {
+
+    function link(scope, element, attrs, vm) {
+
+      var el = null;
+      el = angular.element('<label for="{{ vm.content[0].AttachedElement.attributes.id }}">{{ vm.content[0].AttachedElement.label }}</label>');
+
+      var text = null;
+      text = angular.element('<input/>');
+      _.forIn(vm.content[0].AttachedElement.attributes, function (value, key) {
+        if (value.length > 0) {
+          text.attr(key, value);
+        }
+      });
+
+      el.append(text);
+
+      console.log(el);
+
+      $compile(el)(scope);
+      element.append(el);
+
+    }
 
     var directive = {
-      //link: link,
-      template: '<div class="form-group" ng-show="{{  }}">' +
-      '<label for="inputEmail3" class="col-sm-2 control-label">Email</label>' +
-      '<div class="col-sm-10">' +
-      '<input type="email" class="form-control" id="inputEmail3" placeholder="Email">' +
-      '</div>' +
-      '</div>',
-      restrict: 'AE',
-      replace: 'true'
+      restrict: 'EA',
+      template: '<div class="form-group" ng-show="{{ vm.show }}"></div>',
+      replace: 'true',
+      link: link,
+      scope: {
+        name: '@',
+        show: '@'
+      },
+      controller: TextController,
+      controllerAs: 'vm',
+      bindToController: true
     };
 
     return directive;
   }
 
+  textDirective.$inject = ['$compile'];
+
   angular
     .module('demotaskApp')
     .directive('textDirective', textDirective);
+
 })();

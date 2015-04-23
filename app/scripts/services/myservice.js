@@ -16,9 +16,10 @@
             element: 'input',
             label: 'User Name',
             attributes: {
+              'id': 'userName',
               'type': 'text',
               'ng-model': '',
-              'name': '',
+              'name': 'userName',
               'required': '',
               'ng-required': 'true',
               'ng-minlength': '',
@@ -34,9 +35,10 @@
               element: 'input',
               label: 'Password',
               attributes: {
+                'id': 'password',
                 'type': 'password',
                 'ng-model': '',
-                'name': '',
+                'name': 'password',
                 'required': '',
                 'ng-required': 'true',
                 'ng-minlength': '',
@@ -69,9 +71,22 @@
       }
     }
 
+    function getContentDetails() {
+      return _.flatten(_.pluck(groupData, 'content'));
+    }
+
+    function getContentFromName(name) {
+      var content = _.flatten(_.pluck(groupData, 'content'));
+      return _.filter(content, function(item){
+        return item.AttachedElement.attributes.name === name;
+      });
+    }
+
     var service = {
       getAllGroupData: getAllGroupData,
-      selectDeselectAll: selectDeselectAll
+      selectDeselectAll: selectDeselectAll,
+      getContentDetails: getContentDetails,
+      getContentFromName: getContentFromName
     };
 
     return service;
